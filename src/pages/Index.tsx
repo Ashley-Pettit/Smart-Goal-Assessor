@@ -67,12 +67,14 @@ const Index = () => {
   return (
     <div className="min-h-screen hero-gradient">
       {/* Header */}
-      <header className="py-4 border-b border-border/50 bg-card/80 backdrop-blur-sm">
+      <header className="py-4 border-b border-primary/10 bg-primary">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-center gap-4">
-            <img src={bceLogo} alt="BCE Logo" className="h-12 w-auto" />
-            <div className="h-8 w-px bg-border" />
-            <h1 className="text-xl font-serif font-semibold text-foreground">
+            <div className="bg-white rounded-lg p-2">
+              <img src={bceLogo} alt="BCE Logo" className="h-10 w-auto" />
+            </div>
+            <div className="h-8 w-px bg-white/30" />
+            <h1 className="text-xl font-serif font-semibold text-white">
               SMART Goal Grader
             </h1>
           </div>
@@ -85,7 +87,7 @@ const Index = () => {
           <div className="text-center space-y-4 animate-fade-up">
             <h2 className="text-3xl md:text-4xl font-serif font-semibold text-foreground text-balance">
               Transform Your Goals into{" "}
-              <span className="text-primary">Achievable Plans</span>
+              <span className="text-bce-coral">Achievable Plans</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-xl mx-auto">
               Get instant AI feedback on whether your goals meet the SMART framework. 
@@ -93,24 +95,40 @@ const Index = () => {
             </p>
           </div>
 
-          {/* SMART Info Pills */}
+          {/* SMART Info Pills - using BCE colors */}
           <div className="flex flex-wrap justify-center gap-2 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            {criteriaKeys.map((key) => (
-              <div
-                key={key}
-                className="inline-flex items-center gap-2 px-3 py-1.5 bg-card rounded-full card-shadow text-sm"
-              >
-                <span className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center text-xs font-bold text-primary">
-                  {CRITERIA_INFO[key].letter}
-                </span>
-                <span className="text-foreground font-medium">{CRITERIA_INFO[key].label}</span>
-              </div>
-            ))}
+            {criteriaKeys.map((key, index) => {
+              const colors = [
+                'bg-bce-cyan/20 text-bce-navy border-bce-cyan/40',
+                'bg-bce-purple/15 text-bce-purple border-bce-purple/30',
+                'bg-bce-green/15 text-bce-green border-bce-green/30',
+                'bg-bce-coral/15 text-bce-coral border-bce-coral/30',
+                'bg-bce-yellow/20 text-bce-navy border-bce-yellow/40',
+              ];
+              const bgColors = [
+                'bg-bce-cyan',
+                'bg-bce-purple',
+                'bg-bce-green',
+                'bg-bce-coral',
+                'bg-bce-yellow',
+              ];
+              return (
+                <div
+                  key={key}
+                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-sm font-medium ${colors[index]}`}
+                >
+                  <span className={`w-6 h-6 ${bgColors[index]} rounded-full flex items-center justify-center text-xs font-bold text-white`}>
+                    {CRITERIA_INFO[key].letter}
+                  </span>
+                  <span>{CRITERIA_INFO[key].label}</span>
+                </div>
+              );
+            })}
           </div>
 
           {/* Main Card */}
           <div 
-            className="bg-card rounded-2xl p-6 md:p-8 card-shadow animate-fade-up"
+            className="bg-card rounded-2xl p-6 md:p-8 card-shadow border-t-4 border-t-bce-cyan animate-fade-up"
             style={{ animationDelay: "0.3s" }}
           >
             {!analysis ? (
@@ -130,12 +148,12 @@ const Index = () => {
 
           {/* Info Section */}
           {!analysis && (
-            <div className="flex items-start gap-3 p-4 bg-secondary/50 rounded-xl animate-fade-in" style={{ animationDelay: "0.4s" }}>
+            <div className="flex items-start gap-3 p-4 bg-bce-cyan/10 border border-bce-cyan/30 rounded-xl animate-fade-in" style={{ animationDelay: "0.4s" }}>
               <Info className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
               <div className="text-sm text-muted-foreground">
                 <p className="font-medium text-foreground mb-1">What makes a SMART goal?</p>
                 <p>
-                  SMART goals are <strong>Specific</strong> (clear and defined), <strong>Measurable</strong> (trackable), <strong>Achievable</strong> (realistic), <strong>Relevant</strong> (meaningful), and <strong>Time-bound</strong> (has a deadline). 
+                  SMART goals are <strong className="text-bce-cyan">Specific</strong> (clear and defined), <strong className="text-bce-purple">Measurable</strong> (trackable), <strong className="text-bce-green">Achievable</strong> (realistic), <strong className="text-bce-coral">Relevant</strong> (meaningful), and <strong className="text-bce-yellow">Time-bound</strong> (has a deadline). 
                   This framework helps you create goals you can actually accomplish.
                 </p>
               </div>
