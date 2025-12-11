@@ -60,6 +60,7 @@ export default {
           "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
+        },
         success: {
           DEFAULT: "hsl(var(--success))",
           foreground: "hsl(var(--success-foreground))",
@@ -68,7 +69,15 @@ export default {
           DEFAULT: "hsl(var(--warning))",
           foreground: "hsl(var(--warning-foreground))",
         },
-      },
+        // BCE brand colors
+        bce: {
+          navy: "hsl(var(--bce-navy))",
+          cyan: "hsl(var(--bce-cyan))",
+          purple: "hsl(var(--bce-purple))",
+          coral: "hsl(var(--bce-coral))",
+          green: "hsl(var(--bce-green))",
+          yellow: "hsl(var(--bce-yellow))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
