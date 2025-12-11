@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        serif: ['DM Serif Display', 'serif'],
-        sans: ['DM Sans', 'sans-serif'],
+        serif: ['Merriweather', 'serif'],
+        sans: ['Source Sans 3', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
