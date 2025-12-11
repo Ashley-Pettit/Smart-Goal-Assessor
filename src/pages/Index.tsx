@@ -67,6 +67,13 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Demo Warning Banner */}
+      <div className="bg-bce-coral text-white py-3 px-4 text-center font-bold text-sm md:text-base shadow-lg">
+        <span className="inline-flex items-center gap-2">
+          ⚠️ THIS IS A DEMO ONLY – THIS HAS NOT BEEN APPROVED FOR USE WITH STUDENTS ⚠️
+        </span>
+      </div>
+
       {/* Header */}
       <header className="relative overflow-hidden">
         {/* Colorful accent bar */}
