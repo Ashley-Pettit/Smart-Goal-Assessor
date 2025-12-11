@@ -5,7 +5,8 @@ import GoalInput from "@/components/GoalInput";
 import AnalysisResults from "@/components/AnalysisResults";
 import SuccessModal from "@/components/SuccessModal";
 import { SmartAnalysis, CriterionKey, CRITERIA_INFO } from "@/types/smart-goal";
-import { Target, Info } from "lucide-react";
+import { Info } from "lucide-react";
+import bceLogo from "@/assets/bce-logo.png";
 
 const Index = () => {
   const [goal, setGoal] = useState("");
@@ -66,13 +67,12 @@ const Index = () => {
   return (
     <div className="min-h-screen hero-gradient">
       {/* Header */}
-      <header className="py-6 border-b border-border/50">
+      <header className="py-4 border-b border-border/50 bg-card/80 backdrop-blur-sm">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-center gap-3">
-            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-              <Target className="w-6 h-6 text-primary-foreground" />
-            </div>
-            <h1 className="text-2xl font-serif font-semibold text-foreground">
+          <div className="flex items-center justify-center gap-4">
+            <img src={bceLogo} alt="BCE Logo" className="h-12 w-auto" />
+            <div className="h-8 w-px bg-border" />
+            <h1 className="text-xl font-serif font-semibold text-foreground">
               SMART Goal Grader
             </h1>
           </div>
