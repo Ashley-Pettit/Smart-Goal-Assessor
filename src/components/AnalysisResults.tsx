@@ -47,6 +47,17 @@ const AnalysisResults = ({ analysis, isLoading, onReset, onSubmit }: AnalysisRes
         )}
       </div>
 
+      {/* Overall Assessment - moved here */}
+      {analysis && (
+        <div className="bg-card rounded-xl p-5 card-shadow">
+          <h3 className="font-semibold text-foreground mb-2 flex items-center gap-2">
+            <Lightbulb className="w-5 h-5 text-primary" />
+            Overall Assessment
+          </h3>
+          <p className="text-foreground/90">{analysis.overallFeedback}</p>
+        </div>
+      )}
+
       {/* Criteria Cards */}
       <div className="space-y-4">
         {criteriaKeys.map((key) => (
@@ -59,17 +70,9 @@ const AnalysisResults = ({ analysis, isLoading, onReset, onSubmit }: AnalysisRes
         ))}
       </div>
 
-      {/* Overall Feedback */}
+      {/* Improved goal and actions */}
       {analysis && (
         <div className="space-y-4 pt-4">
-          {/* Overall feedback card */}
-          <div className="bg-card rounded-xl p-6 card-shadow">
-            <h3 className="font-semibold text-foreground mb-2 flex items-center gap-2">
-              <Lightbulb className="w-5 h-5 text-primary" />
-              Overall Assessment
-            </h3>
-            <p className="text-foreground/90">{analysis.overallFeedback}</p>
-          </div>
 
           {/* Improved goal suggestion */}
           {!allPassed && analysis.improvedGoal && (
