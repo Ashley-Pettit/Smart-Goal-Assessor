@@ -47,8 +47,8 @@ const Index = () => {
     }
   };
 
-  const handleReset = () => {
-    setGoal("");
+  const handleEditGoal = () => {
+    // Keep the goal but clear analysis so they can edit
     setAnalysis(null);
   };
 
@@ -59,7 +59,8 @@ const Index = () => {
 
   const handleCloseSuccess = () => {
     setShowSuccess(false);
-    handleReset();
+    setGoal("");
+    setAnalysis(null);
   };
 
   const criteriaKeys: CriterionKey[] = ['specific', 'measurable', 'achievable', 'relevant', 'timeBound'];
@@ -138,12 +139,13 @@ const Index = () => {
               <GoalInput
                 onAnalyze={analyzeGoal}
                 isLoading={isLoading}
+                initialGoal={goal}
               />
             ) : (
               <AnalysisResults
                 analysis={analysis}
                 isLoading={isLoading}
-                onReset={handleReset}
+                onReset={handleEditGoal}
                 onSubmit={handleSubmit}
               />
             )}

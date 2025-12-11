@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { SmartAnalysis, CriterionKey, CRITERIA_INFO } from "@/types/smart-goal";
 import CriterionCard from "./CriterionCard";
-import { CheckCircle2, RotateCcw, Send, Lightbulb } from "lucide-react";
+import { CheckCircle2, Pencil, Send, Lightbulb } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface AnalysisResultsProps {
@@ -86,15 +86,17 @@ const AnalysisResults = ({ analysis, isLoading, onReset, onSubmit }: AnalysisRes
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 pt-2">
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={onReset}
-              className="flex-1"
-            >
-              <RotateCcw className="w-4 h-4" />
-              Try Another Goal
-            </Button>
+            {!allPassed && (
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={onReset}
+                className="flex-1"
+              >
+                <Pencil className="w-4 h-4" />
+                Edit My Goal
+              </Button>
+            )}
             
             {allPassed ? (
               <Button

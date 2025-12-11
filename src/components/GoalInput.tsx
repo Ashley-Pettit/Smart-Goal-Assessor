@@ -7,10 +7,11 @@ interface GoalInputProps {
   onAnalyze: (goal: string) => void;
   isLoading: boolean;
   disabled?: boolean;
+  initialGoal?: string;
 }
 
-const GoalInput = ({ onAnalyze, isLoading, disabled }: GoalInputProps) => {
-  const [goal, setGoal] = useState("");
+const GoalInput = ({ onAnalyze, isLoading, disabled, initialGoal = "" }: GoalInputProps) => {
+  const [goal, setGoal] = useState(initialGoal);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
