@@ -65,33 +65,36 @@ const Index = () => {
   const criteriaKeys: CriterionKey[] = ['specific', 'measurable', 'achievable', 'relevant', 'timeBound'];
 
   return (
-    <div className="min-h-screen hero-gradient">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="py-4 border-b border-primary/10 bg-primary">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-center gap-4">
-            <div className="bg-white rounded-lg p-2">
-              <img src={bceLogo} alt="BCE Logo" className="h-10 w-auto" />
+      <header className="relative overflow-hidden">
+        {/* Colorful accent bar */}
+        <div className="h-1.5 flex">
+          <div className="flex-1 bg-bce-cyan" />
+          <div className="flex-1 bg-bce-purple" />
+          <div className="flex-1 bg-bce-green" />
+          <div className="flex-1 bg-bce-coral" />
+          <div className="flex-1 bg-bce-yellow" />
+        </div>
+        
+        <div className="bg-white py-5 border-b border-border/50">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center justify-center gap-5">
+              <img src={bceLogo} alt="Brisbane Catholic Education" className="h-14 w-auto" />
             </div>
-            <div className="h-8 w-px bg-white/30" />
-            <h1 className="text-xl font-serif font-semibold text-white">
-              SMART Goal Grader
-            </h1>
           </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-12">
+      <main className="container mx-auto px-4 py-10">
         <div className="max-w-2xl mx-auto space-y-8">
           {/* Hero Section */}
-          <div className="text-center space-y-4 animate-fade-up">
-            <h2 className="text-3xl md:text-4xl font-serif font-semibold text-foreground text-balance">
-              Transform Your Goals into{" "}
-              <span className="text-bce-coral">Achievable Plans</span>
-            </h2>
+          <div className="text-center space-y-3 animate-fade-up">
+            <h1 className="text-3xl md:text-4xl font-serif font-bold text-primary">
+              SMART Goal Assistant
+            </h1>
             <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-              Get instant AI feedback on whether your goals meet the SMART framework. 
-              Write better goals and set yourself up for success.
+              Helping you create better goals and set yourself up for success.
             </p>
           </div>
 
