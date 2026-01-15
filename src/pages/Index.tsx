@@ -6,7 +6,7 @@ import AnalysisResults from "@/components/AnalysisResults";
 import SuccessModal from "@/components/SuccessModal";
 import { SmartAnalysis, CriterionKey, CRITERIA_INFO } from "@/types/smart-goal";
 import { Info } from "lucide-react";
-import bceLogo from "@/assets/bce-logo.png";
+
 
 const Index = () => {
   const [goal, setGoal] = useState("");
@@ -81,7 +81,9 @@ const Index = () => {
         <div className="bg-white py-5 border-b border-border/50">
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-center gap-5">
-              <img src={bceLogo} alt="Brisbane Catholic Education" className="h-14 w-auto" />
+              <div className="h-14 w-40 bg-muted rounded-md flex items-center justify-center text-muted-foreground font-medium text-sm border border-border">
+                Your Logo Here
+              </div>
             </div>
           </div>
         </div>
