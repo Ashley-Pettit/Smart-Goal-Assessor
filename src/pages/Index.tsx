@@ -4,14 +4,17 @@ import { toast } from "@/hooks/use-toast";
 import GoalInput from "@/components/GoalInput";
 import AnalysisResults from "@/components/AnalysisResults";
 import SuccessModal from "@/components/SuccessModal";
+import SubmittedGoalsList from "@/components/SubmittedGoalsList";
 import { SmartAnalysis, CriterionKey, CRITERIA_INFO } from "@/types/smart-goal";
 import { Info } from "lucide-react";
+
 const Index = () => {
   const [goal, setGoal] = useState("");
   const [analysis, setAnalysis] = useState<SmartAnalysis | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [submittedGoal, setSubmittedGoal] = useState("");
+  const [submittedGoals, setSubmittedGoals] = useState<string[]>([]);
   const analyzeGoal = async (goalText: string) => {
     setGoal(goalText);
     setIsLoading(true);
@@ -50,6 +53,7 @@ const Index = () => {
   };
   const handleSubmit = () => {
     setSubmittedGoal(goal);
+    setSubmittedGoals((prev) => [goal, ...prev]);
     setShowSuccess(true);
   };
   const handleCloseSuccess = () => {
@@ -112,8 +116,11 @@ const Index = () => {
           <div className="bg-card rounded-2xl p-6 md:p-8 card-shadow border-t-4 border-t-bce-cyan animate-fade-up" style={{
           animationDelay: "0.3s"
         }}>
-            {!analysis ? <GoalInput onAnalyze={analyzeGoal} isLoading={isLoading} initialGoal={goal} /> : <AnalysisResults analysis={analysis} isLoading={isLoading} onReset={handleEditGoal} onSubmit={handleSubmit} />}
+          {!analysis ? <GoalInput onAnalyze={analyzeGoal} isLoading={isLoading} initialGoal={goal} /> : <AnalysisResults analysis={analysis} isLoading={isLoading} onReset={handleEditGoal} onSubmit={handleSubmit} />}
           </div>
+
+          {/* Submitted Goals History */}
+          <SubmittedGoalsList goals={submittedGoals} />
 
           {/* Info Section */}
           {!analysis && <div className="flex items-start gap-3 p-4 bg-bce-cyan/10 border border-bce-cyan/30 rounded-xl animate-fade-in" style={{
