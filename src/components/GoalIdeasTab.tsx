@@ -101,6 +101,20 @@ const GoalIdeasTab = () => {
     setState(initialState);
   };
 
+  const handleRegenerate = () => {
+    setState((prev) => ({ ...prev, generatedGoals: [] }));
+    // Trigger generation again
+    handleGenerate();
+  };
+
+  const handleSwitchType = (newType: GoalType) => {
+    setState((prev) => ({
+      ...prev,
+      goalType: newType,
+      generatedGoals: [],
+    }));
+  };
+
   // Show generated goals if we have them
   if (state.generatedGoals.length > 0 && state.goalType) {
     return (
@@ -108,6 +122,8 @@ const GoalIdeasTab = () => {
         goals={state.generatedGoals}
         goalType={state.goalType}
         onReset={handleReset}
+        onRegenerate={handleRegenerate}
+        onSwitchType={handleSwitchType}
       />
     );
   }

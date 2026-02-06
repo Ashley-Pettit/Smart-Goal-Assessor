@@ -1,5 +1,5 @@
 import { GeneratedGoal, GoalType } from "@/types/goal-ideas";
-import { CheckCircle2, AlertCircle, Target, TrendingUp, Lightbulb } from "lucide-react";
+import { CheckCircle2, AlertCircle, Target, TrendingUp, Lightbulb, RefreshCw, ArrowRightLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
@@ -7,13 +7,17 @@ interface GeneratedGoalsListProps {
   goals: GeneratedGoal[];
   goalType: GoalType;
   onReset: () => void;
+  onRegenerate: () => void;
+  onSwitchType: (type: GoalType) => void;
 }
 
-const GeneratedGoalsList = ({ goals, goalType, onReset }: GeneratedGoalsListProps) => {
+const GeneratedGoalsList = ({ goals, goalType, onReset, onRegenerate, onSwitchType }: GeneratedGoalsListProps) => {
   const alignedGoals = goals.filter(g => g.alignedWithDirection);
   const exploratoryGoals = goals.filter(g => !g.alignedWithDirection);
   const typeColor = goalType === 'performance' ? 'bce-purple' : 'bce-green';
   const TypeIcon = goalType === 'performance' ? Target : TrendingUp;
+  const alternateType = goalType === 'performance' ? 'development' : 'performance';
+  const alternateLabel = goalType === 'performance' ? 'Development' : 'Performance';
 
   return (
     <div className="space-y-6 animate-fade-up">
@@ -86,6 +90,18 @@ const GeneratedGoalsList = ({ goals, goalType, onReset }: GeneratedGoalsListProp
           </div>
         </div>
       )}
+
+      {/* Action Buttons */}
+      <div className="flex flex-wrap gap-3">
+        <Button variant="outline" onClick={onRegenerate} className="flex items-center gap-2">
+          <RefreshCw className="w-4 h-4" />
+          Generate more ideas
+        </Button>
+        <Button variant="outline" onClick={() => onSwitchType(alternateType)} className="flex items-center gap-2">
+          <ArrowRightLeft className="w-4 h-4" />
+          Try {alternateLabel} goals instead
+        </Button>
+      </div>
 
       <div className="flex items-start gap-3 p-4 bg-muted/50 border border-border rounded-xl">
         <Lightbulb className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-0.5" />
