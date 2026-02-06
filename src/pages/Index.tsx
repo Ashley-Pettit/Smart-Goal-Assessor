@@ -5,8 +5,10 @@ import GoalInput from "@/components/GoalInput";
 import AnalysisResults from "@/components/AnalysisResults";
 import SuccessModal from "@/components/SuccessModal";
 import SubmittedGoalsList from "@/components/SubmittedGoalsList";
+import GoalIdeasTab from "@/components/GoalIdeasTab";
 import { SmartAnalysis, CriterionKey, CRITERIA_INFO } from "@/types/smart-goal";
-import { Info } from "lucide-react";
+import { Info, Sparkles, Lightbulb } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Index = () => {
   const [goal, setGoal] = useState("");
@@ -96,45 +98,69 @@ const Index = () => {
             </p>
           </div>
 
-          {/* SMART Info Pills - using BCE colors */}
-          <div className="flex flex-wrap justify-center gap-2 animate-fade-in" style={{
-          animationDelay: "0.2s"
-        }}>
-            {criteriaKeys.map((key, index) => {
-            const colors = ['bg-bce-cyan/20 text-bce-navy border-bce-cyan/40', 'bg-bce-purple/15 text-bce-purple border-bce-purple/30', 'bg-bce-green/15 text-bce-green border-bce-green/30', 'bg-bce-coral/15 text-bce-coral border-bce-coral/30', 'bg-bce-yellow/20 text-bce-navy border-bce-yellow/40'];
-            const bgColors = ['bg-bce-cyan', 'bg-bce-purple', 'bg-bce-green', 'bg-bce-coral', 'bg-bce-yellow'];
-            return <div key={key} className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-sm font-medium ${colors[index]}`}>
-                  <span className={`w-6 h-6 ${bgColors[index]} rounded-full flex items-center justify-center text-xs font-bold text-white`}>
-                    {CRITERIA_INFO[key].letter}
-                  </span>
-                  <span>{CRITERIA_INFO[key].label}</span>
-                </div>;
-          })}
-          </div>
+          {/* Tabs */}
+          <Tabs defaultValue="assistant" className="w-full animate-fade-in" style={{ animationDelay: "0.2s" }}>
+            <TabsList className="grid w-full grid-cols-2 mb-6">
+              <TabsTrigger value="assistant" className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4" />
+                Goal Assistant
+              </TabsTrigger>
+              <TabsTrigger value="ideas" className="flex items-center gap-2">
+                <Lightbulb className="w-4 h-4" />
+                Goal Ideas
+              </TabsTrigger>
+            </TabsList>
 
-          {/* Main Card */}
-          <div className="bg-card rounded-2xl p-6 md:p-8 card-shadow border-t-4 border-t-bce-cyan animate-fade-up" style={{
-          animationDelay: "0.3s"
-        }}>
-          {!analysis ? <GoalInput onAnalyze={analyzeGoal} isLoading={isLoading} initialGoal={goal} /> : <AnalysisResults analysis={analysis} isLoading={isLoading} onReset={handleEditGoal} onSubmit={handleSubmit} />}
-          </div>
-
-          {/* Submitted Goals History */}
-          <SubmittedGoalsList goals={submittedGoals} />
-
-          {/* Info Section */}
-          {!analysis && <div className="flex items-start gap-3 p-4 bg-bce-cyan/10 border border-bce-cyan/30 rounded-xl animate-fade-in" style={{
-          animationDelay: "0.4s"
-        }}>
-              <Info className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-              <div className="text-sm text-muted-foreground">
-                <p className="font-medium text-foreground mb-1">What makes a SMART goal?</p>
-                <p>
-                  SMART goals are <strong className="text-bce-cyan">Specific</strong> (clear and defined), <strong className="text-bce-purple">Measurable</strong> (trackable), <strong className="text-bce-green">Achievable</strong> (realistic), <strong className="text-bce-coral">Relevant</strong> (meaningful), and <strong className="text-bce-yellow">Time-bound</strong> (has a deadline). 
-                  This framework helps you create goals you can actually accomplish.
-                </p>
+            <TabsContent value="assistant" className="space-y-6">
+              {/* SMART Info Pills - using BCE colors */}
+              <div className="flex flex-wrap justify-center gap-2">
+                {criteriaKeys.map((key, index) => {
+                  const colors = ['bg-bce-cyan/20 text-bce-navy border-bce-cyan/40', 'bg-bce-purple/15 text-bce-purple border-bce-purple/30', 'bg-bce-green/15 text-bce-green border-bce-green/30', 'bg-bce-coral/15 text-bce-coral border-bce-coral/30', 'bg-bce-yellow/20 text-bce-navy border-bce-yellow/40'];
+                  const bgColors = ['bg-bce-cyan', 'bg-bce-purple', 'bg-bce-green', 'bg-bce-coral', 'bg-bce-yellow'];
+                  return (
+                    <div key={key} className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-sm font-medium ${colors[index]}`}>
+                      <span className={`w-6 h-6 ${bgColors[index]} rounded-full flex items-center justify-center text-xs font-bold text-white`}>
+                        {CRITERIA_INFO[key].letter}
+                      </span>
+                      <span>{CRITERIA_INFO[key].label}</span>
+                    </div>
+                  );
+                })}
               </div>
-            </div>}
+
+              {/* Main Card */}
+              <div className="bg-card rounded-2xl p-6 md:p-8 card-shadow border-t-4 border-t-bce-cyan">
+                {!analysis ? (
+                  <GoalInput onAnalyze={analyzeGoal} isLoading={isLoading} initialGoal={goal} />
+                ) : (
+                  <AnalysisResults analysis={analysis} isLoading={isLoading} onReset={handleEditGoal} onSubmit={handleSubmit} />
+                )}
+              </div>
+
+              {/* Submitted Goals History */}
+              <SubmittedGoalsList goals={submittedGoals} />
+
+              {/* Info Section */}
+              {!analysis && (
+                <div className="flex items-start gap-3 p-4 bg-bce-cyan/10 border border-bce-cyan/30 rounded-xl">
+                  <Info className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                  <div className="text-sm text-muted-foreground">
+                    <p className="font-medium text-foreground mb-1">What makes a SMART goal?</p>
+                    <p>
+                      SMART goals are <strong className="text-bce-cyan">Specific</strong> (clear and defined), <strong className="text-bce-purple">Measurable</strong> (trackable), <strong className="text-bce-green">Achievable</strong> (realistic), <strong className="text-bce-coral">Relevant</strong> (meaningful), and <strong className="text-bce-yellow">Time-bound</strong> (has a deadline). 
+                      This framework helps you create goals you can actually accomplish.
+                    </p>
+                  </div>
+                </div>
+              )}
+            </TabsContent>
+
+            <TabsContent value="ideas">
+              <div className="bg-card rounded-2xl p-6 md:p-8 card-shadow border-t-4 border-t-bce-green">
+                <GoalIdeasTab />
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </main>
 
