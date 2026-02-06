@@ -19,6 +19,16 @@ const GeneratedGoalsList = ({ goals, goalType, onReset, onRegenerate, onSwitchTy
   const alternateType = goalType === 'performance' ? 'development' : 'performance';
   const alternateLabel = goalType === 'performance' ? 'Development' : 'Performance';
 
+  // Helper to render rationale with line breaks
+  const renderRationale = (rationale: string) => {
+    return rationale.split('\n').map((line, index) => (
+      <span key={index}>
+        {line}
+        {index < rationale.split('\n').length - 1 && <br />}
+      </span>
+    ));
+  };
+
   return (
     <div className="space-y-6 animate-fade-up">
       <div className="flex items-center justify-between">
@@ -57,7 +67,7 @@ const GeneratedGoalsList = ({ goals, goalType, onReset, onRegenerate, onSwitchTy
                 )}
               >
                 <p className="text-foreground font-medium mb-2">"{goal.goal}"</p>
-                <p className="text-sm text-muted-foreground">{goal.rationale}</p>
+                <p className="text-sm text-muted-foreground whitespace-pre-line">{renderRationale(goal.rationale)}</p>
               </div>
             ))}
           </div>
@@ -84,7 +94,7 @@ const GeneratedGoalsList = ({ goals, goalType, onReset, onRegenerate, onSwitchTy
                   <AlertCircle className="w-4 h-4 text-bce-yellow flex-shrink-0 mt-0.5" />
                   <p className="text-foreground font-medium">"{goal.goal}"</p>
                 </div>
-                <p className="text-sm text-muted-foreground ml-6">{goal.rationale}</p>
+                <p className="text-sm text-muted-foreground ml-6 whitespace-pre-line">{renderRationale(goal.rationale)}</p>
               </div>
             ))}
           </div>
