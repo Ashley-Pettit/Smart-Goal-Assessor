@@ -74,20 +74,6 @@ const DevelopmentGoalForm = ({
         </div>
       </div>
 
-      {/* 70:20:10 Model Info */}
-      <div className="flex items-start gap-3 p-4 bg-bce-green/10 border border-bce-green/30 rounded-xl">
-        <Info className="w-5 h-5 text-bce-green flex-shrink-0 mt-0.5" />
-        <div className="text-sm text-muted-foreground">
-          <p className="font-medium text-foreground mb-1">The 70:20:10 Learning Model</p>
-          <p>
-            Development is most effective when it combines <strong className="text-bce-green">70%</strong> on-the-job experiences (projects, challenges, shadowing), 
-            <strong className="text-bce-purple"> 20%</strong> learning from others (mentoring, coaching, feedback), and 
-            <strong className="text-bce-cyan"> 10%</strong> formal learning (courses, reading). 
-            We'll suggest goals that incorporate these approaches.
-          </p>
-        </div>
-      </div>
-
       {/* Purpose Type */}
       <div className="space-y-3">
         <Label>Is this development for your current role or a future aspiration?</Label>
@@ -220,6 +206,20 @@ const DevelopmentGoalForm = ({
             onChange={(e) => onContextChange({ ...context, timeframes: e.target.value })}
             placeholder="e.g., End of Term 2, December 2024"
           />
+        </div>
+      </div>
+
+      {/* 70:20:10 Model Info */}
+      <div className="flex items-start gap-3 p-4 bg-bce-green/10 border border-bce-green/30 rounded-xl">
+        <Info className="w-5 h-5 text-bce-green flex-shrink-0 mt-0.5" />
+        <div className="text-sm text-muted-foreground">
+          <p className="font-medium text-foreground mb-1">The 70:20:10 Learning Model</p>
+          <p>
+            Development is most effective when it combines <strong className="text-bce-green">70%</strong> on-the-job experiences (projects, challenges, shadowing), 
+            <strong className="text-bce-purple"> 20%</strong> learning from others (mentoring, coaching, feedback), and 
+            <strong className="text-bce-cyan"> 10%</strong> formal learning (courses, reading). 
+            We'll suggest goals that incorporate these approaches.
+          </p>
         </div>
       </div>
 
