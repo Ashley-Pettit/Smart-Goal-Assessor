@@ -152,45 +152,16 @@ const PerformanceGoalForm = ({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="schoolPlans">School or organisational plans alignment</Label>
-          <Textarea
-            id="schoolPlans"
-            value={context.schoolPlans || ""}
-            onChange={(e) => onContextChange({ ...context, schoolPlans: e.target.value })}
-            placeholder="What school priorities or plans should your goals align with?"
-            className="min-h-20"
-          />
-        </div>
-
-        <div className="space-y-2">
           <Label htmlFor="priorities">What priorities has your leader given?</Label>
+          <p className="text-xs text-muted-foreground">
+            Alternatively, what school or organisational plans are you seeking to align with?
+          </p>
           <Textarea
             id="priorities"
             value={context.leaderPriorities || ""}
             onChange={(e) => onContextChange({ ...context, leaderPriorities: e.target.value })}
             placeholder="Any specific direction or focus areas from your principal/leader?"
             className="min-h-20"
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="thingsToWorkOn">Things you want to work on</Label>
-          <Textarea
-            id="thingsToWorkOn"
-            value={context.priorities || ""}
-            onChange={(e) => onContextChange({ ...context, priorities: e.target.value })}
-            placeholder="What areas are you personally interested in improving?"
-            className="min-h-20"
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="timeframes">Timeframes</Label>
-          <Input
-            id="timeframes"
-            value={context.timeframes || ""}
-            onChange={(e) => onContextChange({ ...context, timeframes: e.target.value })}
-            placeholder="e.g., End of Term 2, December 2024"
           />
         </div>
 
@@ -202,6 +173,16 @@ const PerformanceGoalForm = ({
             onChange={(e) => onContextChange({ ...context, specificOutcomes: e.target.value })}
             placeholder="Any specific targets or results you need to achieve?"
             className="min-h-20"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="timeframes">Timeframes</Label>
+          <Input
+            id="timeframes"
+            value={context.timeframes || ""}
+            onChange={(e) => onContextChange({ ...context, timeframes: e.target.value })}
+            placeholder="e.g., End of Term 2, December 2024"
           />
         </div>
       </div>
