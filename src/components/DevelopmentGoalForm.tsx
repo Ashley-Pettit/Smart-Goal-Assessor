@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DevelopmentContext, UploadedDocument } from "@/types/goal-ideas";
 import { Upload, FileText, X, Sparkles, Loader2, ArrowLeft, Info } from "lucide-react";
 
@@ -120,11 +119,16 @@ const DevelopmentGoalForm = ({
         </div>
       )}
 
+      {/* Optional Fields Notice */}
+      <p className="text-sm text-muted-foreground italic">
+        All fields below are optional — provide as much or as little as you like to help us generate relevant goal ideas.
+      </p>
+
       {/* Document Upload */}
       <div className="space-y-2">
-        <Label>Upload supporting documents (optional)</Label>
+        <Label>Upload supporting documents</Label>
         <p className="text-xs text-muted-foreground">
-          Prior feedback, development notes, 1-1 manager notes, capability frameworks.
+          Prior feedback, development notes, capability frameworks, etc.
         </p>
         <div
           className={`border-2 border-dashed rounded-xl p-6 text-center transition-colors ${
@@ -184,51 +188,15 @@ const DevelopmentGoalForm = ({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="currentLevel">Current skill level</Label>
-          <Select
-            value={context.currentSkillLevel || ""}
-            onValueChange={(value) => onContextChange({ ...context, currentSkillLevel: value as 'beginner' | 'intermediate' | 'advanced' })}
-          >
-            <SelectTrigger id="currentLevel">
-              <SelectValue placeholder="Select your current level" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="beginner">Beginner - Just starting out</SelectItem>
-              <SelectItem value="intermediate">Intermediate - Some experience</SelectItem>
-              <SelectItem value="advanced">Advanced - Building confidence & mastery</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2">
           <Label htmlFor="priorFeedback">Prior feedback you've received</Label>
+          <p className="text-xs text-muted-foreground">
+            This could include feedback from 1-1s with your manager, performance reviews, or peer feedback.
+          </p>
           <Textarea
             id="priorFeedback"
             value={context.priorFeedback || ""}
             onChange={(e) => onContextChange({ ...context, priorFeedback: e.target.value })}
             placeholder="What feedback have you received that informs this development area?"
-            className="min-h-20"
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="managerNotes">1-1 manager/leader notes</Label>
-          <Textarea
-            id="managerNotes"
-            value={context.managerNotes || ""}
-            onChange={(e) => onContextChange({ ...context, managerNotes: e.target.value })}
-            placeholder="Any relevant notes from conversations with your leader?"
-            className="min-h-20"
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="thingsToWorkOn">Things you want to work on</Label>
-          <Textarea
-            id="thingsToWorkOn"
-            value={context.thingsToWorkOn || ""}
-            onChange={(e) => onContextChange({ ...context, thingsToWorkOn: e.target.value })}
-            placeholder="What areas are you personally motivated to develop?"
             className="min-h-20"
           />
         </div>
@@ -244,12 +212,12 @@ const DevelopmentGoalForm = ({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="outcomes">Specific outcomes you're working towards</Label>
+          <Label htmlFor="outcomes">Specific outcomes or things you want to work on</Label>
           <Textarea
             id="outcomes"
             value={context.specificOutcomes || ""}
             onChange={(e) => onContextChange({ ...context, specificOutcomes: e.target.value })}
-            placeholder="What does success look like for this development?"
+            placeholder="What does success look like? What areas are you personally motivated to develop?"
             className="min-h-20"
           />
         </div>
