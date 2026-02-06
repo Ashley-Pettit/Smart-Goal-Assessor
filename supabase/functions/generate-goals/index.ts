@@ -130,15 +130,19 @@ ${documentContext}
 Generate 3 goals that directly address the stated development needs.
 Also generate 2 additional goals that might be worth considering - these could address related skills, build confidence, or prepare for leadership.
 
-For each goal, incorporate the 70:20:10 model by suggesting specific learning activities:
-- On-the-job experiences (shadowing, projects, stretch assignments)
-- Learning from others (mentoring, coaching, peer feedback)
-- Formal learning (courses, reading) where appropriate
+For each goal, incorporate the 70:20:10 model by suggesting specific learning activities.
+In the rationale, format it as follows:
+1. A brief explanation of why this goal is valuable
+2. Then add: "Here's some things that may help in achieving this goal:"
+3. Then on separate lines:
+   - "70%: [specific on-the-job experience activity]"
+   - "20%: [specific learning from others activity]"  
+   - "10%: [specific formal learning activity]"
 
 Return a JSON array with objects containing:
 - "id": unique string id
 - "goal": the goal statement (include specific development activities)
-- "rationale": brief explanation including recommended 70:20:10 activities
+- "rationale": the explanation with formatted 70:20:10 breakdown as described above
 - "alignedWithDirection": boolean (true for directly relevant, false for exploratory)
 - "type": "development"
 
