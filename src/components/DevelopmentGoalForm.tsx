@@ -202,16 +202,6 @@ const DevelopmentGoalForm = ({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="timeframes">Timeframes</Label>
-          <Input
-            id="timeframes"
-            value={context.timeframes || ""}
-            onChange={(e) => onContextChange({ ...context, timeframes: e.target.value })}
-            placeholder="e.g., End of Term 2, December 2024"
-          />
-        </div>
-
-        <div className="space-y-2">
           <Label htmlFor="outcomes">Specific outcomes or things you want to work on</Label>
           <Textarea
             id="outcomes"
@@ -219,6 +209,16 @@ const DevelopmentGoalForm = ({
             onChange={(e) => onContextChange({ ...context, specificOutcomes: e.target.value })}
             placeholder="What does success look like? What areas are you personally motivated to develop?"
             className="min-h-20"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="timeframes">Timeframes</Label>
+          <Input
+            id="timeframes"
+            value={context.timeframes || ""}
+            onChange={(e) => onContextChange({ ...context, timeframes: e.target.value })}
+            placeholder="e.g., End of Term 2, December 2024"
           />
         </div>
       </div>
