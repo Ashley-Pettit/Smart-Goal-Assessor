@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { DevelopmentContext, UploadedDocument } from "@/types/goal-ideas";
-import { Upload, FileText, X, Sparkles, Loader2, ArrowLeft, Info } from "lucide-react";
+import { Upload, FileText, X, Sparkles, Loader2, ArrowLeft, Info, Play } from "lucide-react";
 
 interface DevelopmentGoalFormProps {
   context: DevelopmentContext;
@@ -29,6 +29,17 @@ const DevelopmentGoalForm = ({
   onBack,
 }: DevelopmentGoalFormProps) => {
   const [dragActive, setDragActive] = useState(false);
+
+  const fillDemoData = () => {
+    onContextChange({
+      purposeType: 'aspirational',
+      aspirationalRole: 'Principal',
+      skillFocus: 'Strategic leadership, operational management, and leading whole-school improvement initiatives',
+      priorFeedback: 'Strong instructional leader with deep curriculum knowledge. Feedback suggests need to develop broader systems thinking, financial acumen, and ability to manage competing stakeholder priorities at a whole-school level.',
+      specificOutcomes: 'Build capacity to lead school-wide strategic planning, manage school budgets effectively, and confidently navigate complex staffing and community engagement challenges.',
+      timeframes: 'End of Term 4, 2025',
+    });
+  };
 
   const handleFileUpload = async (files: FileList | null) => {
     if (!files) return;
@@ -73,6 +84,16 @@ const DevelopmentGoalForm = ({
           </p>
         </div>
       </div>
+
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={fillDemoData}
+        className="flex items-center gap-2 self-start"
+      >
+        <Play className="w-4 h-4" />
+        Demo Mode
+      </Button>
 
       {/* Purpose Type */}
       <div className="space-y-3">

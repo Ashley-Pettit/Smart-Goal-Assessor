@@ -19,14 +19,119 @@ const GeneratedGoalsList = ({ goals, goalType, onReset, onRegenerate, onSwitchTy
   const alternateType = goalType === 'performance' ? 'development' : 'performance';
   const alternateLabel = goalType === 'performance' ? 'Development' : 'Performance';
 
-  // Helper to render rationale with line breaks
+  // Helper to render rationale with structured formatting
   const renderRationale = (rationale: string) => {
-    return rationale.split('\n').map((line, index) => (
-      <span key={index}>
-        {line}
-        {index < rationale.split('\n').length - 1 && <br />}
-      </span>
-    ));
+    // Split into lines and process
+    const lines = rationale.split('\n').filter(line => line.trim() !== '');
+    
+    const elements: JSX.Element[] = [];
+    let whyLines: string[] = [];
+    let foundActions = false;
+    let currentSection: string | null = null;
+    let currentItems: string[] = [];
+
+    const flushSection = () => {
+      if (currentSection && currentItems.length > 0) {
+        elements.push(
+          <div key={`section-${elements.length}`} className="mt-2">
+            <p className="font-semibold underline text-foreground">{currentSection}</p>
+            <ul className="list-disc list-inside ml-4 mt-1 space-y-0.5">
+              {currentItems.map((item, i) => (
+                <li key={i} className="text-sm text-muted-foreground">{item.replace(/^\d+\.\s*/, '')}</li>
+              ))}
+            </ul>
+          </div>
+        );
+        currentItems = [];
+        currentSection = null;
+      }
+    };
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      
+      if (trimmed.toLowerCase().includes('consider some of the potential actions')) {
+        // Flush any "why" text collected before this
+        if (whyLines.length > 0 && !foundActions) {
+          // We'll add why text at the bottom
+        }
+        foundActions = true;
+        elements.push(
+          <p key={`actions-header-${elements.length}`} className="font-bold underline text-foreground mt-3 mb-1">
+            {trimmed}
+          </p>
+        );
+        continue;
+      }
+
+      if (trimmed.match(/^70%/i)) {
+        flushSection();
+        currentSection = trimmed.includes(':') ? trimmed : trimmed;
+        // If the section header includes items after colon, check
+        const colonIdx = trimmed.indexOf(':');
+        if (colonIdx > -1) {
+          const afterColon = trimmed.substring(colonIdx + 1).trim();
+          currentSection = trimmed.substring(0, colonIdx + 1);
+          if (afterColon && !afterColon.match(/^\d/)) {
+            // It's a description, keep as section header
+            currentSection = trimmed;
+          }
+        }
+        continue;
+      }
+
+      if (trimmed.match(/^20%/i)) {
+        flushSection();
+        currentSection = trimmed.includes(':') ? trimmed : trimmed;
+        const colonIdx = trimmed.indexOf(':');
+        if (colonIdx > -1) {
+          currentSection = trimmed.substring(0, colonIdx + 1);
+        }
+        continue;
+      }
+
+      if (trimmed.match(/^10%/i)) {
+        flushSection();
+        currentSection = trimmed.includes(':') ? trimmed : trimmed;
+        const colonIdx = trimmed.indexOf(':');
+        if (colonIdx > -1) {
+          const afterColon = trimmed.substring(colonIdx + 1).trim();
+          currentSection = trimmed.substring(0, colonIdx + 1);
+          if (afterColon) {
+            currentItems.push(afterColon);
+          }
+        }
+        continue;
+      }
+
+      if (foundActions && trimmed.match(/^\d+\./)) {
+        currentItems.push(trimmed);
+        continue;
+      }
+
+      if (foundActions && currentSection) {
+        currentItems.push(trimmed);
+        continue;
+      }
+
+      if (!foundActions) {
+        whyLines.push(trimmed);
+      }
+    }
+
+    flushSection();
+
+    // Add "Why this goal" section at the bottom from the initial explanation lines
+    if (whyLines.length > 0) {
+      elements.push(
+        <div key="why-this-goal" className="mt-4 pt-3 border-t border-border">
+          <p className="font-semibold text-foreground mb-1">Why this goal</p>
+          <p className="text-sm text-muted-foreground">{whyLines.join(' ')}</p>
+        </div>
+      );
+    }
+
+    return <>{elements}</>;
   };
 
   return (
@@ -67,7 +172,7 @@ const GeneratedGoalsList = ({ goals, goalType, onReset, onRegenerate, onSwitchTy
                 )}
               >
                 <p className="text-foreground font-medium mb-2">{goal.goal}</p>
-                <p className="text-sm text-muted-foreground whitespace-pre-line">{renderRationale(goal.rationale)}</p>
+                <div className="text-sm text-muted-foreground">{renderRationale(goal.rationale)}</div>
               </div>
             ))}
           </div>
@@ -94,7 +199,7 @@ const GeneratedGoalsList = ({ goals, goalType, onReset, onRegenerate, onSwitchTy
                   <AlertCircle className="w-4 h-4 text-bce-yellow flex-shrink-0 mt-0.5" />
                   <p className="text-foreground font-medium">{goal.goal}</p>
                 </div>
-                <p className="text-sm text-muted-foreground ml-6 whitespace-pre-line">{renderRationale(goal.rationale)}</p>
+                <div className="text-sm text-muted-foreground ml-6">{renderRationale(goal.rationale)}</div>
               </div>
             ))}
           </div>
