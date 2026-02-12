@@ -73,8 +73,8 @@ serve(async (req) => {
       const isSpecific = ctx.goalMode === "specific";
 
       systemPrompt = `You are an expert in performance goal setting for educators and school staff. 
-You help create SMART goals that align with school priorities, role expectations, and organisational plans.
-Your goals should be specific, measurable, achievable, relevant, and time-bound.
+You help create goals that align with school priorities, role expectations, and organisational plans.
+Every goal you write must naturally follow the SMART framework (Specific, Measurable, Achievable, Relevant, Time-bound) but DO NOT label or mention SMART in the output. Just write well-structured goals that inherently include what will be achieved, how it will be measured, and by when.
 You understand the education context in Australia, including AIPs (Annual Implementation Plans), school strategic plans, and functional area responsibilities.`;
 
       const goalInstruction = isSpecific
@@ -102,9 +102,11 @@ IMPORTANT: Categorise each goal into one of three time categories:
 
 Provide a good mix across all three categories.
 
+IMPORTANT: Each goal statement must naturally be specific about what will be done, include a measurable outcome, and state a timeframe — but do NOT use SMART labels or headings. Write them as natural, well-formed goal statements.
+
 Return a JSON array with objects containing:
 - "id": unique string id
-- "goal": the goal statement
+- "goal": the goal statement (naturally SMART-structured without labeling it as such)
 - "rationale": brief explanation of why this goal is suggested
 - "alignedWithDirection": boolean (true for aligned goals, false for exploratory ones)
 - "type": "performance"
@@ -121,6 +123,7 @@ You help create development goals using the 70:20:10 model:
 - 10% formal learning (courses, reading, certifications)
 
 You understand leadership capability frameworks and help people build skills for current roles and future aspirations.
+Every goal you write must naturally follow the SMART framework (Specific, Measurable, Achievable, Relevant, Time-bound) but DO NOT label or mention SMART in the output. Just write well-structured goals that inherently include what will be achieved, how it will be measured, and by when.
 Your goals should be practical, developmental, and include specific learning strategies.`;
 
       userPrompt = `Generate 5 development goal ideas based on the following context:
@@ -150,7 +153,7 @@ In the rationale, format it as follows:
 
 Return a JSON array with objects containing:
 - "id": unique string id
-- "goal": the goal statement (include specific development activities)
+- "goal": the goal statement (naturally SMART-structured without labeling it as such, include specific development activities)
 - "rationale": the explanation with formatted 70:20:10 breakdown as described above
 - "alignedWithDirection": boolean (true for directly relevant, false for exploratory)
 - "type": "development"
