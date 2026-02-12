@@ -133,11 +133,11 @@ Also generate 2 additional goals that might be worth considering - these could a
 For each goal, incorporate the 70:20:10 model by suggesting specific learning activities.
 In the rationale, format it as follows:
 1. A brief explanation of why this goal is valuable
-2. Then add: "Here's some things that may help in achieving this goal:"
-3. Then on separate lines:
-   - "70%: [specific on-the-job experience activity]"
-   - "20%: [specific learning from others activity]"  
-   - "10%: [specific formal learning activity]"
+2. Then add: "Consider some of the potential actions that will help you achieve this goal throughout the year:"
+3. Then on separate lines, list EXACTLY:
+   - "70% On-the-job experiences:" followed by 5 specific activities as a numbered list (1. 2. 3. 4. 5.)
+   - "20% Learning from others:" followed by 3 specific activities as a numbered list (1. 2. 3.)
+   - "10% Formal learning:" followed by 1 specific activity
 
 Return a JSON array with objects containing:
 - "id": unique string id
