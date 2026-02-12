@@ -249,16 +249,6 @@ const GeneratedGoalsList = ({ goals, goalType, onReset, onRegenerate, onSwitchTy
         </Button>
       </div>
 
-      <div className="flex items-start gap-3 p-4 bg-muted/50 border border-border rounded-xl">
-        <Lightbulb className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-0.5" />
-        <div className="text-sm text-muted-foreground">
-          <p className="font-medium text-foreground mb-1">Next steps</p>
-          <p>
-            Copy any goals you like and head to the <strong>Goal Assistant</strong> tab to refine them into SMART goals.
-            The assistant will help ensure your goals are Specific, Measurable, Achievable, Relevant, and Time-bound.
-          </p>
-        </div>
-      </div>
     </div>
   );
 };
