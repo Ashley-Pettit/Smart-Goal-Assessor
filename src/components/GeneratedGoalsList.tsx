@@ -38,7 +38,7 @@ const GeneratedGoalsList = ({ goals, goalType, onReset, onRegenerate, onSwitchTy
           </div>
           <div>
             <h2 className="text-xl font-semibold text-foreground">
-              Your Goal Ideas
+              Potential Goals
             </h2>
             <p className="text-sm text-muted-foreground">
               Here are some suggested goals based on your context
@@ -66,7 +66,7 @@ const GeneratedGoalsList = ({ goals, goalType, onReset, onRegenerate, onSwitchTy
                   "hover:border-bce-green/50 transition-colors"
                 )}
               >
-                <p className="text-foreground font-medium mb-2">"{goal.goal}"</p>
+                <p className="text-foreground font-medium mb-2">{goal.goal}</p>
                 <p className="text-sm text-muted-foreground whitespace-pre-line">{renderRationale(goal.rationale)}</p>
               </div>
             ))}
@@ -92,7 +92,7 @@ const GeneratedGoalsList = ({ goals, goalType, onReset, onRegenerate, onSwitchTy
               >
                 <div className="flex items-start gap-2 mb-2">
                   <AlertCircle className="w-4 h-4 text-bce-yellow flex-shrink-0 mt-0.5" />
-                  <p className="text-foreground font-medium">"{goal.goal}"</p>
+                  <p className="text-foreground font-medium">{goal.goal}</p>
                 </div>
                 <p className="text-sm text-muted-foreground ml-6 whitespace-pre-line">{renderRationale(goal.rationale)}</p>
               </div>
