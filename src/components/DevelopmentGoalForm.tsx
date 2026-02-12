@@ -37,7 +37,6 @@ const DevelopmentGoalForm = ({
       skillFocus: 'Strategic leadership, operational management, and leading whole-school improvement initiatives',
       priorFeedback: 'Strong instructional leader with deep curriculum knowledge. Feedback suggests need to develop broader systems thinking, financial acumen, and ability to manage competing stakeholder priorities at a whole-school level.',
       specificOutcomes: 'Build capacity to lead school-wide strategic planning, manage school budgets effectively, and confidently navigate complex staffing and community engagement challenges.',
-      timeframes: 'End of Term 4, 2025',
     });
   };
 
@@ -219,15 +218,6 @@ const DevelopmentGoalForm = ({
           />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="timeframes">Timeframes</Label>
-          <Input
-            id="timeframes"
-            value={context.timeframes || ""}
-            onChange={(e) => onContextChange({ ...context, timeframes: e.target.value })}
-            placeholder="e.g., End of Term 2, December 2024"
-          />
-        </div>
       </div>
 
       {/* 70:20:10 Model Info */}

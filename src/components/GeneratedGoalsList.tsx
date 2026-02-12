@@ -162,80 +162,31 @@ const GeneratedGoalsList = ({ goals, goalType, onReset, onRegenerate, onSwitchTy
         </Button>
       </div>
 
-      {/* Performance: Group by time category */}
-      {isPerformance && (
-        <>
-          {timeCategoryConfig.map(({ key, label, icon: Icon, color, description }) => {
-            const categoryGoals = goals.filter(g => g.timeCategory === key);
-            if (categoryGoals.length === 0) return null;
-            return (
-              <div key={key} className="space-y-3">
-                <div className="flex items-center gap-2">
-                  <Icon className={`w-5 h-5 text-${color}`} />
-                  <div>
-                    <span className="text-sm font-semibold text-foreground">{label} ({categoryGoals.length})</span>
-                    <p className="text-xs text-muted-foreground">{description}</p>
-                  </div>
-                </div>
-                <div className="space-y-3">
-                  {categoryGoals.map((goal) =>
-                    renderGoalCard(
-                      goal,
-                      goal.alignedWithDirection ? `border-${color}/30` : "border-bce-yellow/30",
-                      goal.alignedWithDirection ? `bg-${color}/5` : "bg-bce-yellow/5"
-                    )
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </>
-      )}
-
-      {/* Development: Group by aligned/exploratory */}
-      {!isPerformance && (
-        <>
-          {alignedGoals.length > 0 && (
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                <CheckCircle2 className="w-4 h-4 text-bce-green" />
-                <span>Aligned with your direction ({alignedGoals.length})</span>
-              </div>
-              <div className="space-y-3">
-                {alignedGoals.map((goal) =>
-                  renderGoalCard(goal, "border-bce-green/30", "bg-bce-green/5")
-                )}
+      {/* Group all goals by time category */}
+      {timeCategoryConfig.map(({ key, label, icon: Icon, color, description }) => {
+        const categoryGoals = goals.filter(g => g.timeCategory === key);
+        if (categoryGoals.length === 0) return null;
+        return (
+          <div key={key} className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Icon className={`w-5 h-5 text-${color}`} />
+              <div>
+                <span className="text-sm font-semibold text-foreground">{label} ({categoryGoals.length})</span>
+                <p className="text-xs text-muted-foreground">{description}</p>
               </div>
             </div>
-          )}
-
-          {exploratoryGoals.length > 0 && (
             <div className="space-y-3">
-              <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                <Lightbulb className="w-4 h-4 text-bce-yellow" />
-                <span>Worth considering ({exploratoryGoals.length})</span>
-              </div>
-              <div className="space-y-3">
-                {exploratoryGoals.map((goal) => (
-                  <div
-                    key={goal.id}
-                    className={cn(
-                      "p-4 rounded-xl border-2 border-bce-yellow/30 bg-bce-yellow/5",
-                      "hover:border-bce-yellow/50 transition-colors"
-                    )}
-                  >
-                    <div className="flex items-start gap-2 mb-2">
-                      <AlertCircle className="w-4 h-4 text-bce-yellow flex-shrink-0 mt-0.5" />
-                      <p className="text-foreground font-medium">{goal.goal}</p>
-                    </div>
-                    <div className="text-sm text-muted-foreground ml-6">{renderRationale(goal.rationale)}</div>
-                  </div>
-                ))}
-              </div>
+              {categoryGoals.map((goal) =>
+                renderGoalCard(
+                  goal,
+                  goal.alignedWithDirection ? `border-${color}/30` : "border-bce-yellow/30",
+                  goal.alignedWithDirection ? `bg-${color}/5` : "bg-bce-yellow/5"
+                )
+              )}
             </div>
-          )}
-        </>
-      )}
+          </div>
+        );
+      })}
 
       {/* Action Buttons */}
       <div className="flex flex-wrap gap-3">
