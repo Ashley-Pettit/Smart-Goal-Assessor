@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { PerformanceContext, UploadedDocument } from "@/types/goal-ideas";
-import { Upload, FileText, X, Sparkles, Loader2, ArrowLeft, Play } from "lucide-react";
+import { PerformanceContext, PerformanceGoalMode, UploadedDocument } from "@/types/goal-ideas";
+import { Upload, FileText, X, Sparkles, Loader2, ArrowLeft, Play, Target, Lightbulb } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface PerformanceGoalFormProps {
   context: PerformanceContext;
@@ -31,11 +31,10 @@ const PerformanceGoalForm = ({
 
   const fillDemoData = () => {
     onContextChange({
-      leaderGoalCount: 3,
+      goalMode: 'broad',
       roleDescription: 'Year 5/6 classroom teacher and Maths Learning Specialist. Responsible for leading the Numeracy improvement strategy across the school, mentoring early career teachers in maths pedagogy, and coordinating professional learning communities.',
       leaderPriorities: 'The principal has identified improving student outcomes in numeracy (particularly in problem-solving and reasoning) as a key school priority, aligned with the AIP. There is also a focus on building teacher capacity through peer observation and coaching cycles.',
       specificOutcomes: 'Increase the percentage of Year 5/6 students meeting expected growth in NAPLAN numeracy by 10%. Establish a structured peer observation program for maths teaching across the school.',
-      timeframes: 'End of Term 4, 2025',
     });
   };
 
@@ -61,6 +60,10 @@ const PerformanceGoalForm = ({
     handleFileUpload(e.dataTransfer.files);
   };
 
+  const handleModeSelect = (mode: PerformanceGoalMode) => {
+    onContextChange({ ...context, goalMode: mode });
+  };
+
   return (
     <div className="space-y-6 animate-fade-up">
       <div className="flex items-center gap-3">
@@ -83,6 +86,46 @@ const PerformanceGoalForm = ({
         </div>
       </div>
 
+      {/* Goal Mode Selector */}
+      <div className="space-y-2">
+        <Label>What kind of help do you need?</Label>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <button
+            onClick={() => handleModeSelect('specific')}
+            className={cn(
+              "p-4 rounded-xl border-2 text-left transition-all",
+              context.goalMode === 'specific'
+                ? "border-bce-purple bg-bce-purple/5 shadow-sm"
+                : "border-border hover:border-bce-purple/40"
+            )}
+          >
+            <div className="flex items-center gap-2 mb-1">
+              <Target className="w-5 h-5 text-bce-purple" />
+              <span className="font-semibold text-foreground">Specific Goal</span>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              I have a specific area in mind and want focused goal ideas
+            </p>
+          </button>
+          <button
+            onClick={() => handleModeSelect('broad')}
+            className={cn(
+              "p-4 rounded-xl border-2 text-left transition-all",
+              context.goalMode === 'broad'
+                ? "border-bce-purple bg-bce-purple/5 shadow-sm"
+                : "border-border hover:border-bce-purple/40"
+            )}
+          >
+            <div className="flex items-center gap-2 mb-1">
+              <Lightbulb className="w-5 h-5 text-bce-purple" />
+              <span className="font-semibold text-foreground">Lots of Ideas</span>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Give me a broad range of goal ideas to choose from
+            </p>
+          </button>
+        </div>
+      </div>
 
       <Button
         variant="outline"
@@ -93,21 +136,6 @@ const PerformanceGoalForm = ({
         <Play className="w-4 h-4" />
         Demo Mode
       </Button>
-
-      {/* Goal Count */}
-      <div className="space-y-2">
-        <Label htmlFor="goalCount">How many goals has your leader asked you to work on?</Label>
-        <Input
-          id="goalCount"
-          type="number"
-          min={1}
-          max={10}
-          value={context.leaderGoalCount || ""}
-          onChange={(e) => onContextChange({ ...context, leaderGoalCount: parseInt(e.target.value) || undefined })}
-          placeholder="e.g., 3"
-          className="max-w-[120px]"
-        />
-      </div>
 
       {/* Document Upload */}
       <div className="space-y-2">
@@ -194,16 +222,6 @@ const PerformanceGoalForm = ({
             onChange={(e) => onContextChange({ ...context, specificOutcomes: e.target.value })}
             placeholder="Any specific targets or results you need to achieve?"
             className="min-h-20"
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="timeframes">Timeframes</Label>
-          <Input
-            id="timeframes"
-            value={context.timeframes || ""}
-            onChange={(e) => onContextChange({ ...context, timeframes: e.target.value })}
-            placeholder="e.g., End of Term 2, December 2024"
           />
         </div>
       </div>

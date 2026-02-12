@@ -1,15 +1,16 @@
 export type GoalType = 'performance' | 'development';
 
+export type PerformanceGoalMode = 'specific' | 'broad';
+
 export interface PerformanceContext {
+  goalMode?: PerformanceGoalMode;
   roleDescription?: string;
   schoolPlans?: string;
   functionalAreaPlan?: string;
   aipContext?: string;
   competencies?: string;
   priorities?: string;
-  timeframes?: string;
   specificOutcomes?: string;
-  leaderGoalCount?: number;
   leaderPriorities?: string;
 }
 
@@ -40,6 +41,7 @@ export interface GeneratedGoal {
   rationale: string;
   alignedWithDirection: boolean;
   type: GoalType;
+  timeCategory?: 'long-term' | 'medium-term' | 'short-term';
 }
 
 export interface GoalIdeasState {

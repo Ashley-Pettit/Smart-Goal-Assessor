@@ -7,15 +7,14 @@ const corsHeaders = {
 };
 
 interface PerformanceContext {
+  goalMode?: "specific" | "broad";
   roleDescription?: string;
   schoolPlans?: string;
   functionalAreaPlan?: string;
   aipContext?: string;
   competencies?: string;
   priorities?: string;
-  timeframes?: string;
   specificOutcomes?: string;
-  leaderGoalCount?: number;
   leaderPriorities?: string;
 }
 
@@ -71,15 +70,21 @@ serve(async (req) => {
 
     if (goalType === "performance") {
       const ctx = performanceContext || {};
-      const goalCount = ctx.leaderGoalCount || 3;
+      const isSpecific = ctx.goalMode === "specific";
 
       systemPrompt = `You are an expert in performance goal setting for educators and school staff. 
 You help create SMART goals that align with school priorities, role expectations, and organisational plans.
 Your goals should be specific, measurable, achievable, relevant, and time-bound.
 You understand the education context in Australia, including AIPs (Annual Implementation Plans), school strategic plans, and functional area responsibilities.`;
 
-      userPrompt = `Generate ${goalCount + 2} performance goal ideas based on the following context:
+      const goalInstruction = isSpecific
+        ? `Generate 6 focused performance goal ideas that directly address the stated priorities and outcomes. Group them into time categories.`
+        : `Generate 12 diverse performance goal ideas covering a wide range of possibilities for this role and context. Be creative and thorough.`;
 
+      userPrompt = `${goalInstruction}
+
+Context:
+Goal Mode: ${isSpecific ? "Specific - focused on stated priorities" : "Broad - generate lots of diverse ideas"}
 Role: ${ctx.roleDescription || "Not specified"}
 School/Org Plans: ${ctx.schoolPlans || "Not specified"}
 Functional Area Plan: ${ctx.functionalAreaPlan || "Not specified"}
@@ -87,12 +92,15 @@ AIP Context: ${ctx.aipContext || "Not specified"}
 Competencies: ${ctx.competencies || "Not specified"}
 Leader Priorities: ${ctx.leaderPriorities || "Not specified"}
 Personal Priorities: ${ctx.priorities || "Not specified"}
-Timeframes: ${ctx.timeframes || "Not specified"}
 Specific Outcomes: ${ctx.specificOutcomes || "Not specified"}
 ${documentContext}
 
-Generate ${goalCount} goals that are well-aligned with the leader's direction and school priorities.
-Also generate 2 additional goals that might be worth considering but may not directly align with stated priorities - these could be innovative, growth-oriented, or address gaps.
+IMPORTANT: Categorise each goal into one of three time categories:
+- "long-term": Goals spanning a full year or multiple terms (strategic, systemic impact)
+- "medium-term": Goals spanning 1-2 terms (project-based, capability building)
+- "short-term": Goals achievable within a term or weeks (quick wins, immediate improvements)
+
+Provide a good mix across all three categories.
 
 Return a JSON array with objects containing:
 - "id": unique string id
@@ -100,6 +108,7 @@ Return a JSON array with objects containing:
 - "rationale": brief explanation of why this goal is suggested
 - "alignedWithDirection": boolean (true for aligned goals, false for exploratory ones)
 - "type": "performance"
+- "timeCategory": one of "long-term", "medium-term", or "short-term"
 
 Only return valid JSON, no markdown formatting.`;
     } else {
