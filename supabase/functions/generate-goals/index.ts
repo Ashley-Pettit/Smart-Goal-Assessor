@@ -27,7 +27,7 @@ interface DevelopmentContext {
   currentSkillLevel?: "beginner" | "intermediate" | "advanced";
   managerNotes?: string;
   thingsToWorkOn?: string;
-  timeframes?: string;
+  
   specificOutcomes?: string;
 }
 
@@ -126,7 +126,7 @@ You understand leadership capability frameworks and help people build skills for
 Every goal you write must naturally follow the SMART framework (Specific, Measurable, Achievable, Relevant, Time-bound) but DO NOT label or mention SMART in the output. Just write well-structured goals that inherently include what will be achieved, how it will be measured, and by when.
 Your goals should be practical, developmental, and include specific learning strategies.`;
 
-      userPrompt = `Generate 5 development goal ideas based on the following context:
+      userPrompt = `Generate development goal ideas based on the following context:
 
 Purpose: ${ctx.purposeType === "aspirational" ? `Preparing for future role: ${ctx.aspirationalRole || "Not specified"}` : "Supporting current role"}
 Skill Focus: ${ctx.skillFocus || "Not specified"}
@@ -135,12 +135,18 @@ Prior Feedback: ${ctx.priorFeedback || "Not specified"}
 Development Notes: ${ctx.developmentNotes || "Not specified"}
 Manager Notes: ${ctx.managerNotes || "Not specified"}
 Things to Work On: ${ctx.thingsToWorkOn || "Not specified"}
-Timeframes: ${ctx.timeframes || "Not specified"}
 Specific Outcomes: ${ctx.specificOutcomes || "Not specified"}
 ${documentContext}
 
-Generate 3 goals that directly address the stated development needs.
-Also generate 2 additional goals that might be worth considering - these could address related skills, build confidence, or prepare for leadership.
+Generate lots of development goal ideas — aim for 8-10 goals total.
+Provide a good mix of goals that directly address stated needs AND exploratory goals worth considering.
+
+IMPORTANT: Categorise each goal into one of three time categories:
+- "long-term": Goals spanning a full year or multiple terms (strategic capability building, deep skill mastery)
+- "medium-term": Goals spanning 1-2 terms (project-based learning, structured development)
+- "short-term": Goals achievable within a term or weeks (quick skill boosts, immediate development actions)
+
+Provide a good mix across all three categories.
 
 For each goal, incorporate the 70:20:10 model by suggesting specific learning activities.
 In the rationale, format it as follows:
@@ -157,6 +163,7 @@ Return a JSON array with objects containing:
 - "rationale": the explanation with formatted 70:20:10 breakdown as described above
 - "alignedWithDirection": boolean (true for directly relevant, false for exploratory)
 - "type": "development"
+- "timeCategory": one of "long-term", "medium-term", or "short-term"
 
 Only return valid JSON, no markdown formatting.`;
     }

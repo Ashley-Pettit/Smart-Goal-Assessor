@@ -23,7 +23,8 @@ export interface DevelopmentContext {
   currentSkillLevel?: 'beginner' | 'intermediate' | 'advanced';
   managerNotes?: string;
   thingsToWorkOn?: string;
-  timeframes?: string;
+  // timeframes removed - now handled via timeCategory in results
+  
   specificOutcomes?: string;
 }
 
