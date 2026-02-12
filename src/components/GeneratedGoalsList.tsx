@@ -49,15 +49,22 @@ const GeneratedGoalsList = ({ goals, goalType, onReset, onRegenerate, onSwitchTy
     for (const line of lines) {
       const trimmed = line.trim();
       
-      if (trimmed.toLowerCase().includes('consider some of the potential actions')) {
-        // Flush any "why" text collected before this
+      const considerIdx = trimmed.toLowerCase().indexOf('consider some of the potential actions');
+      if (considerIdx > -1) {
+        // Extract any text before "Consider some..." as a why-line
+        const beforeConsider = trimmed.substring(0, considerIdx).trim();
+        if (beforeConsider) {
+          whyLines.push(beforeConsider);
+        }
+        const considerText = trimmed.substring(considerIdx);
+        
         if (whyLines.length > 0 && !foundActions) {
           // We'll add why text at the bottom
         }
         foundActions = true;
         elements.push(
           <p key={`actions-header-${elements.length}`} className="font-bold underline text-foreground mt-3 mb-1">
-            {trimmed}
+            {considerText}
           </p>
         );
         continue;
