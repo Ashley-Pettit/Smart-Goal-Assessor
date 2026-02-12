@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { PerformanceContext, UploadedDocument } from "@/types/goal-ideas";
-import { Upload, FileText, X, Sparkles, Loader2, ArrowLeft } from "lucide-react";
+import { Upload, FileText, X, Sparkles, Loader2, ArrowLeft, Play } from "lucide-react";
 
 interface PerformanceGoalFormProps {
   context: PerformanceContext;
@@ -28,6 +28,16 @@ const PerformanceGoalForm = ({
   onBack,
 }: PerformanceGoalFormProps) => {
   const [dragActive, setDragActive] = useState(false);
+
+  const fillDemoData = () => {
+    onContextChange({
+      leaderGoalCount: 3,
+      roleDescription: 'Year 5/6 classroom teacher and Maths Learning Specialist. Responsible for leading the Numeracy improvement strategy across the school, mentoring early career teachers in maths pedagogy, and coordinating professional learning communities.',
+      leaderPriorities: 'The principal has identified improving student outcomes in numeracy (particularly in problem-solving and reasoning) as a key school priority, aligned with the AIP. There is also a focus on building teacher capacity through peer observation and coaching cycles.',
+      specificOutcomes: 'Increase the percentage of Year 5/6 students meeting expected growth in NAPLAN numeracy by 10%. Establish a structured peer observation program for maths teaching across the school.',
+      timeframes: 'End of Term 4, 2025',
+    });
+  };
 
   const handleFileUpload = async (files: FileList | null) => {
     if (!files) return;
@@ -72,6 +82,17 @@ const PerformanceGoalForm = ({
           </p>
         </div>
       </div>
+
+
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={fillDemoData}
+        className="flex items-center gap-2 self-start"
+      >
+        <Play className="w-4 h-4" />
+        Demo Mode
+      </Button>
 
       {/* Goal Count */}
       <div className="space-y-2">
