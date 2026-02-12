@@ -66,37 +66,23 @@ const GeneratedGoalsList = ({ goals, goalType, onReset, onRegenerate, onSwitchTy
 
       if (trimmed.match(/^70%/i)) {
         flushSection();
-        currentSection = trimmed.includes(':') ? trimmed : trimmed;
-        // If the section header includes items after colon, check
-        const colonIdx = trimmed.indexOf(':');
-        if (colonIdx > -1) {
-          const afterColon = trimmed.substring(colonIdx + 1).trim();
-          currentSection = trimmed.substring(0, colonIdx + 1);
-          if (afterColon && !afterColon.match(/^\d/)) {
-            // It's a description, keep as section header
-            currentSection = trimmed;
-          }
-        }
+        currentSection = "70% Experience (On-the-Job):";
         continue;
       }
 
       if (trimmed.match(/^20%/i)) {
         flushSection();
-        currentSection = trimmed.includes(':') ? trimmed : trimmed;
-        const colonIdx = trimmed.indexOf(':');
-        if (colonIdx > -1) {
-          currentSection = trimmed.substring(0, colonIdx + 1);
-        }
+        currentSection = "20% Exposure (Learning from Others):";
         continue;
       }
 
       if (trimmed.match(/^10%/i)) {
         flushSection();
-        currentSection = trimmed.includes(':') ? trimmed : trimmed;
+        currentSection = "10% Education (Internal or External Learning):";
+        // Check if there's content after the colon on the same line
         const colonIdx = trimmed.indexOf(':');
         if (colonIdx > -1) {
           const afterColon = trimmed.substring(colonIdx + 1).trim();
-          currentSection = trimmed.substring(0, colonIdx + 1);
           if (afterColon) {
             currentItems.push(afterColon);
           }

@@ -135,9 +135,9 @@ In the rationale, format it as follows:
 1. A brief explanation of why this goal is valuable
 2. Then add: "Consider some of the potential actions that will help you achieve this goal throughout the year:"
 3. Then on separate lines, list EXACTLY:
-   - "70% On-the-job experiences:" followed by 5 specific activities as a numbered list (1. 2. 3. 4. 5.)
-   - "20% Learning from others:" followed by 3 specific activities as a numbered list (1. 2. 3.)
-   - "10% Formal learning:" followed by 1 specific activity
+   - "70% Experience (On-the-Job):" followed by 5 specific activities as a numbered list (1. 2. 3. 4. 5.)
+   - "20% Exposure (Learning from Others):" followed by 3 specific activities as a numbered list (1. 2. 3.)
+   - "10% Education (Internal or External Learning):" followed by 1 specific activity
 
 Return a JSON array with objects containing:
 - "id": unique string id
