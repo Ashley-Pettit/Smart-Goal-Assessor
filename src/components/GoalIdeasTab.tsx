@@ -24,10 +24,18 @@ const initialState: GoalIdeasState = {
   isGenerating: false,
 };
 
-const GoalIdeasTab = () => {
+interface GoalIdeasTabProps {
+  onOpenAssistant?: () => void;
+}
+
+const GoalIdeasTab = ({ onOpenAssistant }: GoalIdeasTabProps) => {
   const [state, setState] = useState<GoalIdeasState>(initialState);
 
-  const handleSelectType = (type: GoalType) => {
+  const handleSelectType = (type: GoalType | 'assistant') => {
+    if (type === 'assistant') {
+      onOpenAssistant?.();
+      return;
+    }
     setState((prev) => ({ ...prev, goalType: type }));
   };
 

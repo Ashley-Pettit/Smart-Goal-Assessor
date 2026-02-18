@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import GoalInput from "@/components/GoalInput";
@@ -7,11 +7,11 @@ import SuccessModal from "@/components/SuccessModal";
 import SubmittedGoalsList from "@/components/SubmittedGoalsList";
 import GoalIdeasTab from "@/components/GoalIdeasTab";
 import { SmartAnalysis, CriterionKey, CRITERIA_INFO } from "@/types/smart-goal";
-import { Info, Sparkles, Lightbulb, X } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Info, X } from "lucide-react";
 
 const Index = () => {
   const [showBanner, setShowBanner] = useState(true);
+  const [showAssistant, setShowAssistant] = useState(false);
   const [goal, setGoal] = useState("");
   const [analysis, setAnalysis] = useState<SmartAnalysis | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -51,7 +51,6 @@ const Index = () => {
     }
   };
   const handleEditGoal = () => {
-    // Keep the goal but clear analysis so they can edit
     setAnalysis(null);
   };
   const handleSubmit = () => {
@@ -61,6 +60,11 @@ const Index = () => {
   };
   const handleCloseSuccess = () => {
     setShowSuccess(false);
+    setGoal("");
+    setAnalysis(null);
+  };
+  const handleBackToIdeas = () => {
+    setShowAssistant(false);
     setGoal("");
     setAnalysis(null);
   };
@@ -76,8 +80,6 @@ const Index = () => {
           <div className="flex-1 bg-bce-coral" />
           <div className="flex-1 bg-bce-yellow" />
         </div>
-        
-        
 
         {/* Prototype Warning Banner */}
         {showBanner && (
@@ -95,7 +97,7 @@ const Index = () => {
       </header>
 
       <main className="container mx-auto px-4 py-10">
-        <div className="max-w-2xl mx-auto space-y-8">
+        <div className="max-w-3xl mx-auto space-y-8">
           {/* Hero Section */}
           <div className="text-center space-y-3 animate-fade-up">
             <h1 className="text-3xl md:text-4xl font-serif font-bold text-primary">
@@ -106,21 +108,9 @@ const Index = () => {
             </p>
           </div>
 
-          {/* Tabs */}
-          <Tabs defaultValue="assistant" className="w-full animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <TabsList className="grid w-full grid-cols-2 mb-6">
-              <TabsTrigger value="assistant" className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4" />
-                Goal Assistant
-              </TabsTrigger>
-              <TabsTrigger value="ideas" className="flex items-center gap-2">
-                <Lightbulb className="w-4 h-4" />
-                Goal Ideas
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="assistant" className="space-y-6">
-              {/* SMART Info Pills - using BCE colors */}
+          {showAssistant ? (
+            <div className="space-y-6 animate-fade-in">
+              {/* SMART Info Pills */}
               <div className="flex flex-wrap justify-center gap-2">
                 {criteriaKeys.map((key, index) => {
                   const colors = ['bg-bce-cyan/20 text-bce-navy border-bce-cyan/40', 'bg-bce-purple/15 text-bce-purple border-bce-purple/30', 'bg-bce-green/15 text-bce-green border-bce-green/30', 'bg-bce-coral/15 text-bce-coral border-bce-coral/30', 'bg-bce-yellow/20 text-bce-navy border-bce-yellow/40'];
@@ -138,6 +128,12 @@ const Index = () => {
 
               {/* Main Card */}
               <div className="bg-card rounded-2xl p-6 md:p-8 card-shadow border-t-4 border-t-bce-cyan">
+                <button
+                  onClick={handleBackToIdeas}
+                  className="text-sm text-muted-foreground hover:text-foreground mb-4 flex items-center gap-1 transition-colors"
+                >
+                  ← Back to goal types
+                </button>
                 {!analysis ? (
                   <GoalInput onAnalyze={analyzeGoal} isLoading={isLoading} initialGoal={goal} />
                 ) : (
@@ -161,14 +157,12 @@ const Index = () => {
                   </div>
                 </div>
               )}
-            </TabsContent>
-
-            <TabsContent value="ideas">
-              <div className="bg-card rounded-2xl p-6 md:p-8 card-shadow border-t-4 border-t-bce-green">
-                <GoalIdeasTab />
-              </div>
-            </TabsContent>
-          </Tabs>
+            </div>
+          ) : (
+            <div className="bg-card rounded-2xl p-6 md:p-8 card-shadow border-t-4 border-t-bce-green animate-fade-in">
+              <GoalIdeasTab onOpenAssistant={() => setShowAssistant(true)} />
+            </div>
+          )}
         </div>
       </main>
 
