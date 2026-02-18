@@ -81,7 +81,7 @@ const Index = () => {
 
         {/* Prototype Warning Banner */}
         {showBanner && (
-          <div className="bg-muted border-b border-border text-muted-foreground py-2 px-4 text-center text-xs md:text-sm flex items-center justify-center gap-2">
+          <div className="bg-orange-100 border-b border-orange-300 text-orange-900 py-2.5 px-4 text-center text-sm md:text-base font-medium flex items-center justify-center gap-2">
             <span>⚠️ Prototype – Please do not put in sensitive data or company private information</span>
             <button
               onClick={() => setShowBanner(false)}
