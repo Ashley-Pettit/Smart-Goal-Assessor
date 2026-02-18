@@ -18,13 +18,13 @@ const GoalTypeSelector = ({ onSelect }: GoalTypeSelectorProps) => {
         </p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-4">
+      <div className="grid md:grid-cols-3 gap-4 items-stretch">
         <button
           onClick={() => onSelect('performance')}
           className={cn(
             "group relative p-6 rounded-xl border-2 border-border bg-card",
             "hover:border-bce-purple hover:shadow-lg transition-all duration-200",
-            "text-left"
+            "text-left h-full"
           )}
         >
           <div className="flex flex-col items-start gap-3">
@@ -47,7 +47,7 @@ const GoalTypeSelector = ({ onSelect }: GoalTypeSelectorProps) => {
           className={cn(
             "group relative p-6 rounded-xl border-2 border-border bg-card",
             "hover:border-bce-green hover:shadow-lg transition-all duration-200",
-            "text-left"
+            "text-left h-full"
           )}
         >
           <div className="flex flex-col items-start gap-3">
@@ -70,7 +70,7 @@ const GoalTypeSelector = ({ onSelect }: GoalTypeSelectorProps) => {
           className={cn(
             "group relative p-6 rounded-xl border-2 border-border bg-card",
             "hover:border-bce-cyan hover:shadow-lg transition-all duration-200",
-            "text-left"
+            "text-left h-full"
           )}
         >
           <div className="flex flex-col items-start gap-3">
@@ -82,7 +82,7 @@ const GoalTypeSelector = ({ onSelect }: GoalTypeSelectorProps) => {
                 Goal Assistant
               </h3>
               <p className="text-sm text-muted-foreground">
-                Already have a goal? Check if it meets SMART criteria and get suggestions to improve it.
+                Already have a goal? Check if it meets SMART criteria and get suggestions to strengthen and improve it.
               </p>
             </div>
           </div>
