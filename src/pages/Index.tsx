@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import GoalInput from "@/components/GoalInput";
@@ -7,10 +7,11 @@ import SuccessModal from "@/components/SuccessModal";
 import SubmittedGoalsList from "@/components/SubmittedGoalsList";
 import GoalIdeasTab from "@/components/GoalIdeasTab";
 import { SmartAnalysis, CriterionKey, CRITERIA_INFO } from "@/types/smart-goal";
-import { Info, Sparkles, Lightbulb } from "lucide-react";
+import { Info, Sparkles, Lightbulb, X } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Index = () => {
+  const [showBanner, setShowBanner] = useState(true);
   const [goal, setGoal] = useState("");
   const [analysis, setAnalysis] = useState<SmartAnalysis | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -78,12 +79,19 @@ const Index = () => {
         
         
 
-        {/* Demo Warning Banner */}
-        <div className="bg-bce-coral text-white py-3 px-4 text-center font-bold text-sm md:text-base">
-          <span className="inline-flex items-center gap-2">
-            ⚠️ THIS IS A DEMO ONLY – THIS HAS NOT BEEN APPROVED FOR USE WITH STUDENTS ⚠️
-          </span>
-        </div>
+        {/* Prototype Warning Banner */}
+        {showBanner && (
+          <div className="bg-muted border-b border-border text-muted-foreground py-2 px-4 text-center text-xs md:text-sm flex items-center justify-center gap-2">
+            <span>⚠️ Prototype – Please do not put in sensitive data or company private information</span>
+            <button
+              onClick={() => setShowBanner(false)}
+              className="ml-2 p-0.5 rounded hover:bg-accent transition-colors"
+              aria-label="Dismiss banner"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        )}
       </header>
 
       <main className="container mx-auto px-4 py-10">
