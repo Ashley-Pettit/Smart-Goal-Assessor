@@ -27,7 +27,7 @@ const GoalTypeSelector = ({ onSelect }: GoalTypeSelectorProps) => {
             "text-left h-full"
           )}
         >
-          <div className="flex flex-col items-start gap-3">
+          <div className="flex flex-col items-start gap-3 h-full">
             <div className="w-12 h-12 rounded-full bg-bce-purple/15 flex items-center justify-center flex-shrink-0">
               <Target className="w-6 h-6 text-bce-purple" />
             </div>
@@ -50,7 +50,7 @@ const GoalTypeSelector = ({ onSelect }: GoalTypeSelectorProps) => {
             "text-left h-full"
           )}
         >
-          <div className="flex flex-col items-start gap-3">
+          <div className="flex flex-col items-start gap-3 h-full">
             <div className="w-12 h-12 rounded-full bg-bce-green/15 flex items-center justify-center flex-shrink-0">
               <TrendingUp className="w-6 h-6 text-bce-green" />
             </div>
@@ -73,7 +73,7 @@ const GoalTypeSelector = ({ onSelect }: GoalTypeSelectorProps) => {
             "text-left h-full"
           )}
         >
-          <div className="flex flex-col items-start gap-3">
+          <div className="flex flex-col items-start gap-3 h-full">
             <div className="w-12 h-12 rounded-full bg-bce-cyan/15 flex items-center justify-center flex-shrink-0">
               <Sparkles className="w-6 h-6 text-bce-cyan" />
             </div>
